@@ -22,6 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-$4!i860e8a&h+!)y&z(&^25mezknhpir*3(+na(v)ocgpc$8-7'
 
+"Audio File Saving"
+import os
+# Directory file goes to to
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
+#URL used to access the media
+MEDIA_URL = '/media/'
+
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -41,7 +50,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     # local created apps
-    'users'
+    'users',
+    'file_processing'
+    
+    
 
 ]
 REST_FRAMEWORK = {

@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from users import views
 from rest_framework import routers
+from file_processing import views as file_processing_views
 # Token views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -34,4 +35,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/export/', file_processing_views.AudioView.as_view()),
 ]
