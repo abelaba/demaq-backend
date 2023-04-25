@@ -35,5 +35,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/export/', file_processing_views.AudioView.as_view()),
+    path('api/audio/', file_processing_views.AudioView.as_view()),
+    path('api/audio/<int:pk>', file_processing_views.AudioViewGet.as_view()),
+    path('api/audios/', file_processing_views.AudioViews.as_view()),
 ]
