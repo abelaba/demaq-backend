@@ -49,6 +49,7 @@ INSTALLED_APPS = [
    # 3rd party
     'rest_framework',
     'rest_framework_simplejwt',
+    
 
     # local created apps
     'users',
@@ -62,6 +63,11 @@ REST_FRAMEWORK = {
     ('rest_framework_simplejwt.authentication.JWTAuthentication',),
     
 
+}
+import datetime
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=15),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=15),
 }
 
 

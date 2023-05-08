@@ -75,8 +75,10 @@ class AudioView(APIView):
         audio_file=request.data.get("audio")
         name=str(audio_file)
         duplicate_audio=find(name=name,path=path)
+        if duplicate_audio:
+            return Response({"path":duplicate_audio},status=200)
+        return Response({"message":"No audio file by this name"},status=404)
         
-        return duplicate_audio
         
     def validate_duplicate_audo(self,request,format=None):
         duplicate_audio=self.duplicate_audio(request=request)
@@ -90,6 +92,10 @@ class AudioView(APIView):
             return Response({"audio":" is required"},status=400)
         elif check_str is True:
             return Response({"audio":"should be file"},status=400)
+        return Response({"message":"Success"},status=200)
+    def validate_audio_input_2(self,request,format=None):
+        if request.data.get("audio",False) is False:
+            return Response({"audio":" is required"},status=400)
         return Response({"message":"Success"},status=200)
         
 
@@ -142,15 +148,16 @@ class AudioView(APIView):
     # get audio by title name
     def get(self,request,format=None):
         audio=self.find_audio_by_title(request=request)
+        audio_validate_input=self.validate_audio_input_2(request=request)
+        duplicate=self.duplicate_audio(request=request)
         if audio.status_code is not 200:
             return audio
-        audio_validate_input=self.validate_audio_input(request=request)
         if audio_validate_input.status_code is not 200:
             return audio_validate_input
-        audio_file=self.duplicate_audio(request=request)
-        if audio_file is None:
-            return Response({"file":"not found"},status=404)
-        return Response(audio_file)
+        if duplicate.status_code is 404:
+            return duplicate
+      
+        return duplicate
     #  post or create an audio at /mediafiles/audio
     def post(self,request,format=None):
         validate_all=self.validate_all(request=request)
@@ -185,18 +192,3 @@ class AudioView(APIView):
         except:
             return Response({"message":"could not delete the the file"},status=500)
         return Response({"deleted"},status=200)
-
-# class AudioFileGet(APIView):
-#      def find_audo(self,request,format=None):
-#         audio=self.duplicate_audio(request=request)
-#         if not audio:
-#             return Response({"message":"Audio File not found"},status=404)
-#         else:
-#             return Response({"success"},status=200)
-    
-
-#     def get(self,request,format=None):
-        
-#         audio=self.find_audio(request=request)
-        
-#         return  FileResponse()
