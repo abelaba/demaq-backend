@@ -72,6 +72,8 @@ class AudioView(APIView):
                 if name in files:
                     return os.path.join(root, name)
         path=str(os.path.dirname(os.getcwd()))+"/mediafiles/"
+        # return Response(os.path.dirname(os.getcwd()))
+    
         audio_file=request.data.get("audio")
         name=str(audio_file)
         duplicate_audio=find(name=name,path=path)
