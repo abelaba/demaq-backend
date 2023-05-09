@@ -19,6 +19,9 @@ from django.urls import path, include
 from users import views
 from rest_framework import routers
 from file_processing import views as file_processing_views
+from file_processing import activity as activity_views
+from broadcast.views import BroadcastView ,BroadcastViews
+from broadcast.activity import BroadcastingToday,BroadcastingAllYear
 # Token views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -30,12 +33,26 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 
 
+
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    # Authentications
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # File Processing
     path('api/audio/', file_processing_views.AudioView.as_view()),
     path('api/audio/<int:pk>', file_processing_views.AudioViewGet.as_view()),
     path('api/audios/', file_processing_views.AudioViews.as_view()),
+    # User Activities
+    path("api/activity/recordingtoday/",activity_views.RecordingToday.as_view()),
+    path("api/activity/recordingthisyear/",activity_views.RecordingAllYear.as_view()),
+    # Broadcaster
+    
+    path("api/broadcasts/",BroadcastViews.as_view()),
+    path("api/broadcast/",BroadcastView.as_view()),
+    # Broadcaster Activity
+    
+    path("api/activity/broadcasttoday/",BroadcastingToday.as_view()),
+    path("api/activity/broadcastyear/",BroadcastingAllYear.as_view())
 ]

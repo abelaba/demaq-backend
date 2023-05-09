@@ -5,6 +5,7 @@ class AudioSerializer(serializers.Serializer):
     descr=serializers.CharField(required=True)
     audio_file=serializers.CharField(required=True)
     owner=serializers.CharField(required=True)
+    created = serializers.CharField()
     class Meta:
         model=AudioModel
         fields=['title','owner','descr','audio_file']

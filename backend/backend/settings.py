@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     
 
     # local created apps
+    'broadcast',
     'users',
     'file_processing'
     

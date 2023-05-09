@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import AudioModel
@@ -24,11 +23,7 @@ class AudioViewGet(generics.RetrieveUpdateDestroyAPIView):
 
 class AudioView(APIView,CustomValidator,CustomFind):
     permission_classes=[permissions.IsAuthenticated]        
-    
-    def get_updated_audio(self,request,format=None):
-        updated_audio=self.find_audio_by_name_2(name=request.data.get(("updated_title")))
-        return updated_audio
-    
+   
         
     """
     Gets audio by title and audio name
