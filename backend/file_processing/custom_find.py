@@ -104,4 +104,21 @@ class CustomFind():
             return Response({"path":duplicate_audio},status=200)
         return Response({"message":"No audio file by this audio name check extension such as .mp3 or .mkv   "},status=404)
         
-        
+    """
+    This will delete audios from file
+    """
+    def find_audio_and_delete(self,name,format=None):
+        import os
+        def find(name,path):
+            for root, dirs, files in os.walk(path):
+                if name in files:
+                    return os.path.join(root, name)
+        path=str(os.path.dirname(os.getcwd()))+"/mediafiles/"
+        path_to_delete=find(name=name,path=path)
+        if path_to_delete is not None:
+            os.remove(path_to_delete)
+            return Response({"message":"success"},status=200)
+        else:
+            return Response({"message":"could not found the data to delete"},status=404)
+                
+            

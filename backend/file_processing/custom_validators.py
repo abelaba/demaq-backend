@@ -9,8 +9,14 @@ from rest_framework.response import Response
 from .models import AudioModel
 from .custom_find import CustomFind
 class CustomValidator(CustomFind):
-    
-        
+    """
+    validate if title is present in request
+    """
+    def validate_title(self,requeset,format=None):
+        title=requeset.data.get("title")
+        if title is None:
+            return Response({"title":"is required"},status=500)
+        return Response({"success"},status=200)
     """
         validates the input of the user
         404 if not found

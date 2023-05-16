@@ -8,4 +8,4 @@ class AudioSerializer(serializers.Serializer):
     created = serializers.CharField()
     class Meta:
         model=AudioModel
-        fields=['title','owner','descr','audio_file']
+        fields=['title','owner','descr','audio']

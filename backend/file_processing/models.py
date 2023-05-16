@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from datetime import datetime
 # Create your models here.
 def upload_audio_directory_to(instance,filename):
-    return 'audio/{filename}'.format(filename=filename)
+    return '{filename}'.format(filename=filename)
 class AudioModel(models.Model):
     owner=models.ForeignKey('auth.User',on_delete=models.CASCADE)
     title=models.CharField(max_length=250,unique=True)
