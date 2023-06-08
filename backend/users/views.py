@@ -1,17 +1,14 @@
-from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework import permissions
-from users.serializers import UserSerializer
+from .models import NewUser
+from .serializers import MyUserSerializer
+# views here.
+class MyUserView(APIView):
 
-
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-
-
-
+    def post(self, request, format='json'):
+        serializer = MyUserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data )
+        return Response(serializer.errors)

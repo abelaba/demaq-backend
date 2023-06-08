@@ -16,12 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from users import views
+# from users import views
 from rest_framework import routers
 from file_processing import views as file_processing_views
 from file_processing import activity as activity_views
 from broadcast.views import BroadcastView ,BroadcastViews
 from broadcast.activity import BroadcastingToday,BroadcastingAllYear
+from users.views import MyUserView
 # Token views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -29,13 +30,13 @@ from rest_framework_simplejwt.views import (
 )
 
 # User views
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+# router = routers.DefaultRouter()
+# router.register(r'users', views.UserViewSet)
 
 
 
 urlpatterns = [
-    path('', include(router.urls)),
+    # path('', include(router.urls)),
     path('admin/', admin.site.urls),
     # Authentications
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -54,5 +55,8 @@ urlpatterns = [
     # Broadcaster Activity
     
     path("api/activity/broadcasttoday/",BroadcastingToday.as_view()),
-    path("api/activity/broadcastyear/",BroadcastingAllYear.as_view())
+    path("api/activity/broadcastyear/",BroadcastingAllYear.as_view()),
+    
+    
+    path("api/user/",MyUserView.as_view())
 ]
