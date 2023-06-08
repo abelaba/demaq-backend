@@ -36,8 +36,9 @@ class NewUser(AbstractBaseUser):
         # managed = False
         db_table = 'user_entity'
 
+    id = models.AutoField(primary_key=True, db_column='id')
     username = models.CharField(db_column='username', unique=True, max_length=20)
-    role = models.CharField(db_column='userRole', unique=True, max_length=20)
+    role = models.CharField(db_column='userRole', max_length=60)
     password = models.CharField(db_column='userPassword', max_length=256)
    
     
@@ -49,7 +50,7 @@ class NewUser(AbstractBaseUser):
     USERNAME_FIELD = 'username'
 
     def __str__(self):
-        return str(self.user_id) + " (%s)" % str(self.username)
+        return str(self.id) + " (%s)" % str(self.username)
 
     def has_perm(self, perm, obj=None):
         return True
@@ -61,7 +62,7 @@ class NewUser(AbstractBaseUser):
     class Meta:
         # managed = False
         db_table = 'user_entity'
-
+    id = models.AutoField(primary_key=True, db_column='id')
     username = models.CharField(db_column='username', unique=True, max_length=20)
     password = models.CharField(db_column='userPassword', max_length=256)
     is_active = models.BooleanField(default=True)
@@ -71,7 +72,7 @@ class NewUser(AbstractBaseUser):
     USERNAME_FIELD = 'username'
 
     def __str__(self):
-        return str(self.user_id) + " (%s)" % str(self.username)
+        return str(self.id) + " (%s)" % str(self.username)
 
     def has_perm(self, perm, obj=None):
         return True
