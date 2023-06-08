@@ -1,5 +1,7 @@
 from .models import NewUser
 from rest_framework import serializers
+from rest_framework.response import Response
+
 class MyUserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
             required=True,
@@ -23,3 +25,4 @@ class MyUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = NewUser.objects.create_user(validated_data['username'], validated_data["password"],validated_data["role"])
         return user
+    

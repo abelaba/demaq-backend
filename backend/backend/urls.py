@@ -22,7 +22,7 @@ from file_processing import views as file_processing_views
 from file_processing import activity as activity_views
 from broadcast.views import BroadcastView ,BroadcastViews
 from broadcast.activity import BroadcastingToday,BroadcastingAllYear
-from users.views import MyUserView
+from users.views import MyUserView,UserDetail
 # Token views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -58,5 +58,6 @@ urlpatterns = [
     path("api/activity/broadcastyear/",BroadcastingAllYear.as_view()),
     
     
-    path("api/user/",MyUserView.as_view())
+    path("api/user/",MyUserView.as_view()),
+    path("api/userdetail/<int:pk>",UserDetail.as_view())
 ]

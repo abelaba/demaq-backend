@@ -12,8 +12,8 @@ class CustomValidator(CustomFind):
     """
     validate if title is present in request
     """
-    def validate_title(self,requeset,format=None):
-        title=requeset.data.get("title")
+    def validate_title(self,request,format=None):
+        title=request.data.get("title")
         if title is None:
             return Response({"title":"is required"},status=500)
         return Response({"success"},status=200)
