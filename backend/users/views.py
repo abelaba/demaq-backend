@@ -7,7 +7,7 @@ from rest_framework import permissions
 
 # views here.
 class MyUserView(APIView):
-    permission_classes=[permissions.IsAuthenticated]
+    # permission_classes=[permissions.IsAuthenticated]
     def get(self,request,format='json'):
         users=NewUser.objects.all()
         serialized_users=MyUserSerializer(users,many=True)

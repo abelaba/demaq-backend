@@ -1,0 +1,30 @@
+// TODO 
+Today's logged user
+NewUser
+RecordingAllWeek
+BroadCastingWeek
+TrackActiveUser
+The edited audio file
+Script Save -> as a text
+
+BROADCASTING
+
+
+
+
+
+routes
+Sign up
+POST {{home}}/user/ ->Signup
+POST{{home}}/token/ ->Login access token save in the local storage
+Go to landing page-> 
+GET {{home}}/user/username/
+  Check user.role
+  if role is unset:
+      return "Admin is waiting"
+  if role is broadcast:
+        return "Broadcast page"
+    
+
+
+

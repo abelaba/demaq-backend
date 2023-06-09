@@ -44,9 +44,9 @@ class MultipleAudioProcessing(CustomValidator,CustomFind):
     
     
     """
-        Create an audio file in mediafile directory
+        Create an audio file in media file directory
         {
-            "audio":"add a file here"  the audio name should be differenet also the audio should not be string type
+            "audio":"add a file here"  the audio name should be different also the audio should not be string type
             "title":"Title of the audio here"
             "descr":"description about the audio"
             
