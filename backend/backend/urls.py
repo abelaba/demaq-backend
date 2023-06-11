@@ -29,6 +29,9 @@ from scripts.views import ScriptsHome,ScriptsMany
 
 from recording.views import RecordingThisWeek,RecordingToday,Recording
 
+
+from usermanagement.views import UserStatusDetail,TodaysLoggedUser
+
 # Token views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -70,5 +73,11 @@ urlpatterns = [
 
     #Scripts
     path("api/script/", ScriptsHome.as_view(), name="script"), 
-    path("api/scripts/", ScriptsMany.as_view(), name="scripts") 
+    path("api/scripts/", ScriptsMany.as_view(), name="scripts"),
+
+    # User status
+    path("api/user/log/",UserStatusDetail.as_view(), name="userlog"),
+    path("api/user/log/today/", TodaysLoggedUser.as_view(), name="todayloggeduser")
+
+    
 ]

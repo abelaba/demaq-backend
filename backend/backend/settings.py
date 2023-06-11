@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'users',
     'file_processing',
     'recording',
+    'usermanagement',
     'scripts'
     
     
