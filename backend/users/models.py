@@ -5,7 +5,7 @@ from django.utils import timezone
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, username, password, role,**extra_fields):
+    def create_user(self, username, password, role,email,**extra_fields):
         user = self.model(
             username=username
         )
@@ -14,12 +14,13 @@ class MyUserManager(BaseUserManager):
         user.is_superuser=True
         
         user.role=role
+        user.email=email
         
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, password, role,**extra_fields):
+    def create_superuser(self, username, password, role,email,**extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -28,7 +29,7 @@ class MyUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self.create_user(username, password, role, **extra_fields)    
+        return self.create_user(username, password, role, email,**extra_fields)    
 
 class NewUser(AbstractBaseUser):
     objects = MyUserManager()
@@ -38,6 +39,7 @@ class NewUser(AbstractBaseUser):
 
     id = models.AutoField(primary_key=True, db_column='id')
     username = models.CharField(db_column='username', unique=True, max_length=20)
+    email = models.CharField(db_column='email', unique=True, max_length=20)
     role = models.CharField(db_column='userRole', max_length=60)
     password = models.CharField(db_column='userPassword', max_length=256)
    
@@ -64,6 +66,7 @@ class NewUser(AbstractBaseUser):
         db_table = 'user_entity'
     id = models.AutoField(primary_key=True, db_column='id')
     username = models.CharField(db_column='username', unique=True, max_length=20)
+    email = models.CharField(db_column='email', unique=True, max_length=20)
     password = models.CharField(db_column='userPassword', max_length=256)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
@@ -72,7 +75,7 @@ class NewUser(AbstractBaseUser):
     USERNAME_FIELD = 'username'
 
     def __str__(self):
-        return str(self.id) + " (%s)" % str(self.username)
+        return str(self.id) + " (%s)" % str(self.username) +" email (%s)" +str(self.email)
 
     def has_perm(self, perm, obj=None):
         return True

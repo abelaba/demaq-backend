@@ -21,8 +21,11 @@ class MyUserView(APIView):
         return Response(serializer.errors)
     def put(self,request,format='json'):
         username=request.data.get("username")
+        email=request.data.get("username")
         if username is None:
             return Response({"username":"is required"},status=400)
+        if email is None:
+            return Response({"email":"is required"},status=400)
         try:
             user=NewUser.objects.filter(username=username)
             if request.data.get("role") is None:
