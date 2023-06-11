@@ -33,6 +33,9 @@ class RecordingToday(APIView,SingleAudioProcessing,MultipleAudioProcessing):
         if recording_today==0:
             return Response({"No recording created today"},status=404)
         return Response({"recording creating today":recording_today},status=200)
+    
+    def post(self,request,format=None):
+
 class RecordingAllYear(APIView,SingleAudioProcessing,MultipleAudioProcessing):
     permission_classes=[permissions.IsAuthenticated]
     def get(self,request,format=None):

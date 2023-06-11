@@ -3,10 +3,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from scripts.models import Script
 from scripts.serializers import ScriptSerializer
+from rest_framework import permissions
+
 
 
 # Create your views here.
 class ScriptsMany(APIView):
+    permission_classes=[permissions.IsAuthenticated]
     def get(self,request,format=None):
         scripts=Script.objects.all()
         scripts_serialized=ScriptSerializer(scripts,many=True)
@@ -14,6 +17,7 @@ class ScriptsMany(APIView):
     
 
 class ScriptsHome(APIView):
+    permission_classes=[permissions.IsAuthenticated]
     def get(self,request,format='json'):
         title = request.data.get("title")
         if title is None:
