@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'broadcast',
     'corsheaders',
     'users',
-    'file_processing'
+    'file_processing',
+    'scripts'
     
     
 

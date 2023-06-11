@@ -23,6 +23,7 @@ from file_processing import activity as activity_views
 from broadcast.views import BroadcastView ,BroadcastViews
 from broadcast.activity import BroadcastingToday,BroadcastingAllYear
 from users.views import MyUserView,UserDetail
+from scripts.views import ScriptsHome,ScriptsMany
 # Token views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -57,7 +58,11 @@ urlpatterns = [
     path("api/activity/broadcasttoday/",BroadcastingToday.as_view()),
     path("api/activity/broadcastyear/",BroadcastingAllYear.as_view()),
     
-    
+    # Creating and getting users
     path("api/user/",MyUserView.as_view()),
-    path("api/userdetail/<int:pk>",UserDetail.as_view())
+    path("api/userdetail/<int:pk>",UserDetail.as_view()),
+
+    #Scripts
+    path("api/script/", ScriptsHome.as_view(), name="script"), 
+    path("api/scripts/", ScriptsMany.as_view(), name="scripts") 
 ]

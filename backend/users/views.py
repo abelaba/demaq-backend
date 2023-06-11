@@ -17,8 +17,8 @@ class MyUserView(APIView):
         serializer = MyUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data )
-        return Response(serializer.errors)
+            return Response(serializer.data,status=200)
+        return Response(serializer.errors,status=400)
     def put(self,request,format='json'):
         username=request.data.get("username")
         email=request.data.get("username")
