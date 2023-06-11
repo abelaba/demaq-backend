@@ -19,11 +19,16 @@ from django.urls import path, include
 # from users import views
 from rest_framework import routers
 from file_processing import views as file_processing_views
-from file_processing import activity as activity_views
+
 from broadcast.views import BroadcastView ,BroadcastViews
 from broadcast.activity import BroadcastingToday,BroadcastingAllYear
+
 from users.views import MyUserView,UserDetail
+
 from scripts.views import ScriptsHome,ScriptsMany
+
+from recording.views import RecordingThisWeek,RecordingToday,Recording
+
 # Token views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -47,8 +52,9 @@ urlpatterns = [
     path('api/audio/<int:pk>', file_processing_views.AudioViewGet.as_view()),
     path('api/audios/', file_processing_views.AudioViews.as_view()),
     # User Activities
-    path("api/activity/recordingtoday/",activity_views.RecordingToday.as_view()),
-    path("api/activity/recordingthisyear/",activity_views.RecordingAllYear.as_view()),
+    path("api/activity/recording/",Recording.as_view()),
+    path("api/activity/recordingtoday/",RecordingToday.as_view()),
+    path("api/activity/recordingthisweek/",RecordingThisWeek.as_view()),
     # Broadcaster
     
     path("api/broadcasts/",BroadcastViews.as_view()),
