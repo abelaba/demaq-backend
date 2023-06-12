@@ -4,11 +4,11 @@ In this module we will track user activities
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import BroadCastModel
-from .broad_cast_processing import BroadcastingProcessors,BroadcastingProcessor
+from .broad_cast_processing import BroadcastingProcessor
 from rest_framework import permissions
 from datetime import datetime
 
-class BroadcastingToday(APIView,BroadcastingProcessors):
+class BroadcastingToday(APIView,BroadcastingProcessor):
     permission_classes=[permissions.IsAuthenticated]
     def get(self,request,format=None):
         broadcasting_today=0
@@ -32,7 +32,7 @@ class BroadcastingToday(APIView,BroadcastingProcessors):
         if broadcasting_today==0:
             return Response({"No broadcasting today"},status=404)
         return Response({"broadcasted today":broadcasting_today},status=200)
-class BroadcastingAllYear(APIView,BroadcastingProcessors):
+class BroadcastingAllYear(APIView,BroadcastingProcessor):
     permission_classes=[permissions.IsAuthenticated]
     def get(self,request,format=None):
         broadcasts=self.get_broadcasts(request=request)

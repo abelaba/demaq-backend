@@ -1,7 +1,7 @@
 from django.db import models
-from datetime import datetime
-from rest_framework import permissions
-# Create your models here.
+from datetime import datetime,date
+
+
 
 class BroadCastModel(models.Model):
 
@@ -12,5 +12,3 @@ class BroadCastModel(models.Model):
 
     def __str__(self):
        return f"broadcaster {self.broadcaster} date {self.broadcast_date} broadcasted audio {self.broadcasted_audio_title}"
-
-    

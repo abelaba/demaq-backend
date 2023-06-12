@@ -20,7 +20,7 @@ from django.urls import path, include
 from rest_framework import routers
 from file_processing import views as file_processing_views
 
-from broadcast.views import BroadcastView ,BroadcastViews
+from broadcast.views import BroadcastView
 from broadcast.activity import BroadcastingToday,BroadcastingAllYear
 
 from users.views import MyUserView,UserDetail
@@ -60,7 +60,6 @@ urlpatterns = [
     path("api/activity/recordingthisweek/",RecordingThisWeek.as_view()),
     # Broadcaster
     
-    path("api/broadcasts/",BroadcastViews.as_view()),
     path("api/broadcast/",BroadcastView.as_view()),
     # Broadcaster Activity
     
@@ -79,6 +78,8 @@ urlpatterns = [
     path("api/user/log/",UserStatusDetail.as_view(), name="userlog"),
     path("api/user/log/today/", TodaysLoggedUser.as_view(), name="todayloggeduser"),
     path("api/user/newusers/", NewUsersView.as_view(), name="newusers")
+
+    # 
 
     
 ]

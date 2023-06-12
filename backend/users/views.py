@@ -15,7 +15,18 @@ class MyUserView(APIView):
         return Response(serialized_users.data)
     
     def post(self, request, format='json'):
+
+        # Confirm password
+        password=request.data.get("password")
+        confirm_password=request.data.get("confirm_password")
+        if password is None:
+            return Response({"password":"is required"},status=400)
+        if confirm_password is None:
+            return Response({"confirm_password":"is requried"},status=400)
+        if(password!=confirm_password):
+            return Response({"password":"does not match"},status=400)
         serializer = MyUserSerializer(data=request.data)
+
         if serializer.is_valid():
             serializer.save()
             try:
