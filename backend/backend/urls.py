@@ -30,7 +30,7 @@ from scripts.views import ScriptsHome,ScriptsMany
 from recording.views import RecordingThisWeek,RecordingToday,Recording
 
 
-from usermanagement.views import UserStatusDetail,TodaysLoggedUser
+from usermanagement.views import UserStatusDetail,TodaysLoggedUser,NewUsersView
 
 # Token views
 from rest_framework_simplejwt.views import (
@@ -77,7 +77,8 @@ urlpatterns = [
 
     # User status
     path("api/user/log/",UserStatusDetail.as_view(), name="userlog"),
-    path("api/user/log/today/", TodaysLoggedUser.as_view(), name="todayloggeduser")
+    path("api/user/log/today/", TodaysLoggedUser.as_view(), name="todayloggeduser"),
+    path("api/user/newusers/", NewUsersView.as_view(), name="newusers")
 
     
 ]

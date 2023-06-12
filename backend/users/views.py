@@ -4,6 +4,7 @@ from rest_framework import permissions
 from .models import NewUser
 from .serializers import MyUserSerializer
 from rest_framework import permissions
+from usermanagement.models import NewUsersLog
 
 # views here.
 class MyUserView(APIView):
@@ -17,6 +18,10 @@ class MyUserView(APIView):
         serializer = MyUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            try:
+                log_new_user=NewUsersLog.objects.create()
+            except:
+                return Response({"log":"could not be created"},status=500)
             return Response(serializer.data,status=200)
         return Response(serializer.errors,status=400)
     def put(self,request,format='json'):
