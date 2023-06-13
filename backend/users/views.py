@@ -22,11 +22,18 @@ class MyUserView(APIView):
         password=request.data.get("password")
         confirm_password=request.data.get("confirm_password")
         if password is None:
-            return Response({"password":"is required"},status=400)
+            response= Response({"password":"is required"},status=400)
+            
+            response['Access-Control-Allow-Origin'] = "*"
+            return response
         if confirm_password is None:
-            return Response({"confirm_password":"is requried"},status=400)
+            response=Response({"confirm_password":"is requried"},status=400)
+            response['Access-Control-Allow-Origin'] = "*"
+            return response
         if(password!=confirm_password):
-            return Response({"password":"does not match"},status=400)
+            response= Response({"password":"does not match"},status=400)
+            response['Access-Control-Allow-Origin'] = "*"
+            return response
         serializer = MyUserSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -34,8 +41,12 @@ class MyUserView(APIView):
             try:
                 log_new_user=NewUsersLog.objects.create()
             except:
-                return Response({"log":"could not be created"},status=500)
-            return Response(serializer.data,status=200)
+               response= Response({"log":"could not be created"},status=500)
+               response['Access-Control-Allow-Origin'] = "*"
+               return response
+            response= Response(serializer.data,status=200)
+            response['Access-Control-Allow-Origin'] = "*"
+            return response
         return Response(serializer.errors,status=400)
     def put(self,request,format='json'):
         username=request.data.get("username")
