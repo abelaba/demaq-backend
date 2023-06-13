@@ -34,7 +34,6 @@ MEDIA_URL = '/media/'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -161,11 +160,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL='users.NewUser'
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhcost:3000',
-]
-CORS_ALLOW_METHODS = [
-    'GET', 'POST', 'DELETE', 'PUT'
-]
