@@ -58,17 +58,13 @@ class ScriptsHome(APIView):
         except:
             return Response({"message":"could not found script"},status=404)
     def delete(self,request,format=None):
-        title=request.data.get('title')
-        
+        title = request.data.get("title")
         if title is None:
-            return Response({"title":"is required"})
-        sc=self.get(request=request)
-        if sc.status_code is not 200:
-            return sc
+            return Response({"title":"is required"},status=400)
         try:
-         script=Script.objects.filter(title=title)
-         script.delete()
-         return Response({"message":"deleted"},status=201)
+            script=Script.objects.get(title=title)
+            script.delete()
+            return Response({"deleted"},status=200)
         except:
-            return Response({"message":"could not found script"},status=404)
-
+            return Response({"message":"could not found script"},status=400)
+        
