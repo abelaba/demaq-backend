@@ -14,7 +14,8 @@ class MyUserView(APIView):
         users=NewUser.objects.all()
         serialized_users=MyUserSerializer(users,many=True)
         response= Response(serialized_users.data)
-        response['Access-Control-Allow-Origin'] = "*"
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Headers"] = "*"
         return response
     def post(self, request, format='json'):
 
@@ -24,15 +25,18 @@ class MyUserView(APIView):
         if password is None:
             response= Response({"password":"is required"},status=400)
             
-            response['Access-Control-Allow-Origin'] = "*"
+            response["Access-Control-Allow-Origin"] = "*"
+            response["Access-Control-Allow-Headers"] = "*"
             return response
         if confirm_password is None:
             response=Response({"confirm_password":"is requried"},status=400)
-            response['Access-Control-Allow-Origin'] = "*"
+            response["Access-Control-Allow-Origin"] = "*"
+            response["Access-Control-Allow-Headers"] = "*"
             return response
         if(password!=confirm_password):
             response= Response({"password":"does not match"},status=400)
-            response['Access-Control-Allow-Origin'] = "*"
+            response["Access-Control-Allow-Origin"] = "*"
+            response["Access-Control-Allow-Headers"] = "*"
             return response
         serializer = MyUserSerializer(data=request.data)
 
@@ -42,10 +46,12 @@ class MyUserView(APIView):
                 log_new_user=NewUsersLog.objects.create()
             except:
                response= Response({"log":"could not be created"},status=500)
-               response['Access-Control-Allow-Origin'] = "*"
+               response["Access-Control-Allow-Origin"] = "*"
+               response["Access-Control-Allow-Headers"] = "*"
                return response
             response= Response(serializer.data,status=200)
-            response['Access-Control-Allow-Origin'] = "*"
+            response["Access-Control-Allow-Origin"] = "*"
+            response["Access-Control-Allow-Headers"] = "*"
             return response
         return Response(serializer.errors,status=400)
     def put(self,request,format='json'):
