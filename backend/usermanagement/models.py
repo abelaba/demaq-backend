@@ -8,3 +8,5 @@ class UserStatus(models.Model):
     logged = models.CharField(default=datetime.today().strftime("%Y-%m-%d"),max_length=300)
 class NewUsersLog(models.Model):
     created_week=models.CharField(default=week_num,max_length=200)
+class UserActivityTrack(models.Model):
+    tracked = models.CharField(default=datetime.today().strftime("%Y-%m-%d"),max_length=300)

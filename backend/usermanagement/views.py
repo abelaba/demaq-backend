@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from usermanagement.models import UserStatus,NewUsersLog
-from usermanagement.serializers import UserStatusSerializer,NewUserSerializer
+from usermanagement.models import UserStatus,NewUsersLog,UserActivityTrack
+from usermanagement.serializers import UserStatusSerializer,NewUserSerializer,UserActivityTrackSerializer
 from datetime import datetime,date
 
 # Create your views here.
@@ -49,7 +49,6 @@ class NewUsersView(APIView):
                 this_week_created_users+=1
 
 
-            
         return Response({"this week created users":this_week_created_users})
      def post(self,request,format=None):
          try:
@@ -57,3 +56,17 @@ class NewUsersView(APIView):
              return Response({"log":"created"},status=201)
          except:
              return Response({"log":"could not be created"},status=500)
+
+
+class ActiveUsersThisWeek(APIView):
+    def get(self,request,format=None):
+        all_user_activity_this_week_raw=UserActivityTrack.objects.all()
+        all_user_activity_this_week_serialized=UserActivityTrackSerializer(all_user_activity_this_week_raw,many=True)
+        all_user_activity_this_week=all_user_activity_this_week_serialized.data
+        return Response(all_user_activity_this_week)
+    def post(self,request,format=None):
+        try:
+            track_user=UserActivityTrack.objects.create()
+            return Response({"status":"tracked"},status=200)
+        except:
+            return Response({"status":"not tracked"},status=500)

@@ -10,10 +10,12 @@ from usermanagement.models import NewUsersLog
 class MyUserView(APIView):
     # permission_classes=[permissions.IsAuthenticated]
     def get(self,request,format='json'):
+
         users=NewUser.objects.all()
         serialized_users=MyUserSerializer(users,many=True)
-        return Response(serialized_users.data)
-    
+        response= Response(serialized_users.data)
+        response['Access-Control-Allow-Origin'] = "*"
+        return response
     def post(self, request, format='json'):
 
         # Confirm password

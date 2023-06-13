@@ -24,13 +24,12 @@ from broadcast.views import BroadcastView
 from broadcast.activity import BroadcastingToday,BroadcastingAllYear
 
 from users.views import MyUserView,UserDetail
-
 from scripts.views import ScriptsHome,ScriptsMany
 
 from recording.views import RecordingThisWeek,RecordingToday,Recording
 
 
-from usermanagement.views import UserStatusDetail,TodaysLoggedUser,NewUsersView
+from usermanagement.views import UserStatusDetail,TodaysLoggedUser,NewUsersView,ActiveUsersThisWeek
 
 # Token views
 from rest_framework_simplejwt.views import (
@@ -77,9 +76,9 @@ urlpatterns = [
     # User status
     path("api/user/log/",UserStatusDetail.as_view(), name="userlog"),
     path("api/user/log/today/", TodaysLoggedUser.as_view(), name="todayloggeduser"),
-    path("api/user/newusers/", NewUsersView.as_view(), name="newusers")
+    path("api/user/newusers/", NewUsersView.as_view(), name="newusers"),
 
-    # 
-
+    # # Log When Used
+    path("api/activeusersthisweek/", ActiveUsersThisWeek.as_view(), name="")
     
 ]
