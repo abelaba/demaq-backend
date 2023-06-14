@@ -24,6 +24,8 @@ GET {{home}}/user/username/
       return "Admin is waiting"
   if role is broadcast:
         return "Broadcast page"
+
+title, status, description, RTB, user, duration, date, file
     
 
 
