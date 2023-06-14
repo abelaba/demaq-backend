@@ -36,7 +36,6 @@ class BroadcastView(APIView,BroadcastingProcessor):
             return find_broadcasted_file
         except:
             return Response({"broadcasted file ":"is not found"},status=404)
-        return broadcast
     def post(self,request,format=None):
         if(request.data.get("title") is None):
             return Response({"title":"is required"},status=400)
@@ -141,6 +140,41 @@ class StackView(APIView):
 
             stack.delete()
             return Response("deleted")
+        except:
+            return Response({"stack":"not found"},status=404)
+
+class StackPaths(APIView):
+    def find_audio_by_name(self,audio_file,format=None):
+        import os
+        def find(name, path):
+            for root, dirs, files in os.walk(path):
+                if name in files:
+                    return os.path.join(root, name)
+        path=str(os.path.dirname(os.getcwd()))+"/mediafiles/"
+        # return Response(os.path.dirname(os.getcwd()))
+    
+        name=str(audio_file)
+        duplicate_audio=find(name=name,path=path)
+        if duplicate_audio:
+            return Response({"path":duplicate_audio},status=200)
+        return Response({"message":"No audio file by this audio name check extension such as .mp3 or .mkv   "},status=404)
+    def get(self,request,format=None):
+        title_of_broadcast=request.data.get("title")
+        paths=[]
+        if title_of_broadcast is None:
+            return Response({"title":"is required"},status=400)
+        try:
+            stack=StackModel.objects.get(title=request.data.get("title"))
+            stack_serialized=StackSerializers(stack)
+            broadcast_audios=stack_serialized.data["broadcast_audios"]
+            files=[]
+            for broadcast in broadcast_audios:
+                find_broadcasted_file=self.find_audio_by_name(broadcast['broadcasted_file'])
+                files.append(find_broadcasted_file.data['path'])
+
+                
+
+            return Response(files,status=201)
         except:
             return Response({"stack":"not found"},status=404)
 

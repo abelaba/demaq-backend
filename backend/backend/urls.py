@@ -20,7 +20,7 @@ from django.urls import path, include
 from rest_framework import routers
 from file_processing import views as file_processing_views
 
-from broadcast.views import BroadcastView,StackView,StackViews,BroadcastViews,StackOne
+from broadcast.views import BroadcastView,StackView,StackViews,BroadcastViews,StackOne,StackPaths
 from broadcast.activity import BroadcastingToday,BroadcastingAllYear
 
 
@@ -87,5 +87,6 @@ urlpatterns = [
     path("api/stack/",StackView.as_view(),name="stack"),
     path("api/stacks/",StackViews.as_view(),name="stacks"),
     path("api/stack/remove/",StackOne.as_view(),name="stackdelete"),
+    path("api/stack/paths/",StackPaths.as_view(),name="stackdelete"),
 
 ]
