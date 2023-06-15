@@ -33,6 +33,7 @@ from recording.views import RecordingThisWeek,RecordingToday,Recording
 
 from usermanagement.views import UserStatusDetail,TodaysLoggedUser,NewUsersView,ActiveUsersThisWeek
 
+from file_processing.testviews import TestBase64
 
 # Token views
 from rest_framework_simplejwt.views import (
@@ -91,6 +92,9 @@ urlpatterns = [
     path("api/stacks/",StackViews.as_view(),name="stacks"),
     path("api/stack/remove/",StackOne.as_view(),name="stackdelete"),
     path("api/stack/paths/",StackPaths.as_view(),name="stackdelete"),
+
+    path("testbase64/",TestBase64.as_view())
+
 
     
 
