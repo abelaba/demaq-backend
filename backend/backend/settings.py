@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'recording',
     'usermanagement',
     'scripts',
-    'playlists'
     
     
 

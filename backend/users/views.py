@@ -88,7 +88,7 @@ class MyUserView(APIView):
 
 
 class UserByName(APIView):
-    def get(self,request,format=None):
+    def post(self,request,format=None):
         username=request.data.get("username")
         if username is None:
             return Response({"username":"is required"},status=500)
