@@ -113,18 +113,14 @@ class AudioView(APIView,CustomValidator,CustomFind):
     Using only the title
     """
     def delete(self,request,format=None):
-        find_audio_by_title=self.find_audio_by_title(request=request)
-        if find_audio_by_title.status_code is not 200:
-            return find_audio_by_title
+        find_audio_by_title=request.data.get("title")
+        if find_audio_by_title is  None:
+            return Response({"status":"title is required"},status=400)
         try:
             audio=AudioModel.objects.get(title=request.data.get("title"))
-            audio_serialized=AudioSerializer(audio)
-            audio_file_name=audio_serialized.data["audio_file"]
-            find_and_delete=self.find_audio_and_delete(name=audio_file_name)
-            if find_and_delete.status_code is not 200:
-                return find_and_delete
+            audio.delete()
+
+            return Response({"audio":"deleted"},status=201)
             
-            audio=AudioModel.objects.get(title=request.data.get("title")).delete()
-        except Exception as e:
+        except :
             return Response({"message":"could not delete the file"},status=500)
-        return Response({"message":"deleted"},status=200)
