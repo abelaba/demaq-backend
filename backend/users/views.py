@@ -71,6 +71,20 @@ class MyUserView(APIView):
             return Response({"message":" role updated"},status=200)
         except:
             return Response({"message":"Could not found user "},status=404)
+    def delete(self,request,format=None):
+        username=request.data.get("username")
+        email=request.data.get("username")
+        if username is None:
+            return Response({"username":"is required"},status=400)
+        if email is None:
+            return Response({"email":"is required"},status=400)
+        try:
+            user=NewUser.objects.get(username=username)
+            user.delete()
+            return Response({"message":" deleted"},status=200)
+        except:
+            return Response({"message":"Could not found user "},status=404)
+
 
 
 class UserByName(APIView):
