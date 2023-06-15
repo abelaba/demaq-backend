@@ -76,3 +76,6 @@ from rest_framework import generics
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = NewUser.objects.all()
     serializer_class = MyUserSerializer
+class MyUserViews(APIView):
+    queryset = NewUser.objects.all()
+    serializer_class = MyUserSerializer

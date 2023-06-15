@@ -25,7 +25,7 @@ from broadcast.activity import BroadcastingToday,BroadcastingAllYear
 
 
 
-from users.views import MyUserView,UserDetail
+from users.views import MyUserView,UserDetail,MyUserViews
 from scripts.views import ScriptsHome,ScriptsMany
 
 from recording.views import RecordingThisWeek,RecordingToday,Recording
@@ -70,6 +70,7 @@ urlpatterns = [
     
     # Creating and getting users
     path("api/user/",MyUserView.as_view()),
+    path("api/users/",MyUserViews.as_view()),
     path("api/userdetail/<int:pk>",UserDetail.as_view()),
 
     #Scripts
