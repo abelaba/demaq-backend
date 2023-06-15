@@ -76,25 +76,14 @@ class StackView(APIView):
         title_of_stack=request.data.get("title")
         if title_of_stack is None:
             return Response({"title":"is required"},status=400)
-        broadcast=request.data.get("broadcast")
-        if broadcast is None:
-            return Response({"broadcast":"is required"},status=400)
-        try:
-            broadcasted=BroadCastModel.objects.get(broadcasted_audio_title=broadcast)
-            
-        except:
-            return Response({"broadcast":" audio not found or not ready to broadcast"},status=400)
+        
         try:
             stack=StackModel.objects.get(title=title_of_stack)
             return Response({"name":"in use"})
         except:
             pass
-        broadcasted_serialized=BroadCastSerializer(broadcasted)
-        add_to_broadcast=broadcasted_serialized.data["broadcasted_audio_title"]
         stack=StackModel.objects.create(title=title_of_stack)
-        stack.broadcast_audios.set(
-            [add_to_broadcast]
-        )
+        
         stack_serializer=StackSerializers(stack)
         return Response(stack_serializer.data)
     def put(self,request,format=None):

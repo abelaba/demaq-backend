@@ -8,8 +8,10 @@ class AudioModel(models.Model):
     owner=models.ForeignKey('users.NewUser',on_delete=models.CASCADE)
     title=models.CharField(max_length=250,unique=True)
     descr=models.CharField(max_length=250)
+    status=models.CharField(max_length=250)
+    RTB=models.BooleanField()
     audio_file=models.FileField(upload_to=upload_audio_directory_to)
-    created = models.CharField(default=datetime.today().strftime("%Y-%m-%d"),max_length=300)
+    created = models.CharField(default=datetime.today().strftime("%Y-%m-%d"),max_length=300)    
     def __str__(self):
        return f"title {self.title}"
 
