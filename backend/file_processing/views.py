@@ -66,7 +66,13 @@ class AudioView(APIView,CustomValidator,CustomFind):
         if validate_input_and_title.status_code is not 200:
             return validate_input_and_title
         audio_file=request.data.get("audio")
-        audio=AudioModel.objects.create(audio_file=audio_file,owner=request.user,title=request.data.get('title'),descr=request.data.get('descr'))
+        RTB=request.data.get("RTB")
+        status=request.data.get("status")
+        if status is None:
+            return Response({"status":"is required"},status=400)
+        if RTB is None:
+            return Response({"RTB":"is required"})
+        audio=AudioModel.objects.create(audio_file=audio_file,owner=request.user,title=request.data.get('title'),descr=request.data.get('descr'),status=status,RTB=RTB)
         serializer=AudioSerializer(audio)
         return Response(serializer.data)
     
@@ -88,8 +94,15 @@ class AudioView(APIView,CustomValidator,CustomFind):
         if validate_input_and_updatedtitle.status_code is not 200:
             return validate_input_and_updatedtitle
         
+        RTB=request.data.get("RTB")
+        status=request.data.get("status")
+        if status is None:
+            return Response({"status":"is required"},status=400)
+        if RTB is None:
+            return Response({"RTB":"is required"})
+        
         audio_file=request.data.get("audio")
-        audio=AudioModel.objects.filter(title=request.data.get("title")).update(title=request.data.get("updated_title"),audio_file=audio_file,descr=request.data.get('descr'))        
+        audio=AudioModel.objects.filter(title=request.data.get("title")).update(title=request.data.get("updated_title"),audio_file=audio_file,descr=request.data.get('descr'),status=status,RTB=RTB)        
         return Response({"message":"updated"},status=201)
     
     
