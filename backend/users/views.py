@@ -81,7 +81,7 @@ class UserByName(APIView):
         try:
             user_raw=NewUser.objects.get(username=username)
             user_serializer=MyUserSerializer(user_raw)
-            return Response(user_serializer.datat)
+            return Response(user_serializer.data)
         except:
             return Response({"statuss","Not found"},status=400)
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
