@@ -5,6 +5,8 @@ from .models import NewUser
 from .serializers import MyUserSerializer
 from rest_framework import permissions
 from usermanagement.models import NewUsersLog
+from rest_framework import generics
+
 
 # views here.
 class MyUserView(APIView):
@@ -71,11 +73,20 @@ class MyUserView(APIView):
             return Response({"message":"Could not found user "},status=404)
 
 
-from rest_framework import generics
-
+class UserByName(APIView):
+    def get(self,request,format=None):
+        username=request.data.get("username")
+        if username is None:
+            return Response({"username":"is required"},status=500)
+        try:
+            user_raw=NewUser.objects.get(username=username)
+            user_serializer=MyUserSerializer(user_raw)
+            return Response(user_serializer.datat)
+        except:
+            return Response({"statuss","Not found"},status=400)
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = NewUser.objects.all()
     serializer_class = MyUserSerializer
-class MyUserViews(APIView):
+class MyUserViews(generics.ListCreateAPIView):
     queryset = NewUser.objects.all()
     serializer_class = MyUserSerializer
